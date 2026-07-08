@@ -172,15 +172,6 @@ class HomeContent(models.Model):
     cta_primario_texto = models.CharField(max_length=50, default='Ver caso INS')
     cta_secundario_texto = models.CharField(max_length=50, default='Ver proyectos')
 
-    caso_titulo = models.CharField('Título del caso de estudio', max_length=200, default='Caso ancla — Bioterio INS')
-    caso_anio = models.CharField(max_length=10, default='2015')
-    caso_problema = models.TextField('Problema')
-    caso_arquitectura = models.TextField('Arquitectura')
-    caso_resultado = models.TextField(
-        'Resultado',
-        help_text='Se permite HTML simple, ej. <b>negrita</b>.',
-    )
-
     class Meta:
         verbose_name = 'Contenido de Home'
         verbose_name_plural = 'Contenido de Home'
@@ -191,10 +182,6 @@ class HomeContent(models.Model):
     def save(self, *args, **kwargs):
         self.pk = 1
         super().save(*args, **kwargs)
-
-    @property
-    def caso_resultado_html(self):
-        return mark_safe(self.caso_resultado)
 
 
 class HomeStat(models.Model):
@@ -212,22 +199,6 @@ class HomeStat(models.Model):
 
     def __str__(self):
         return f'{self.valor}{self.sufijo} — {self.etiqueta}'
-
-
-class HomeCaseStat(models.Model):
-    home = models.ForeignKey(HomeContent, related_name='case_stats', on_delete=models.CASCADE)
-    valor = models.CharField(max_length=20)
-    etiqueta = models.CharField(max_length=100)
-    color = models.CharField(max_length=10, choices=COLOR_CHOICES, default='primary')
-    orden = models.PositiveIntegerField(default=0)
-
-    class Meta:
-        ordering = ['orden', 'id']
-        verbose_name = 'Estadística del caso'
-        verbose_name_plural = 'Estadísticas del caso de estudio'
-
-    def __str__(self):
-        return f'{self.valor} — {self.etiqueta}'
 
 
 class AboutContent(models.Model):

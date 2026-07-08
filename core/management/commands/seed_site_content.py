@@ -3,7 +3,6 @@ from django.core.management.base import BaseCommand
 from core.models import (
     AboutContent,
     Certification,
-    HomeCaseStat,
     HomeContent,
     HomeStat,
     SkillGroup,
@@ -23,11 +22,6 @@ class Command(BaseCommand):
                 'lead': '20+ años en automatización de sistemas críticos, hoy aplicado a Data Science e IA en producción.',
                 'cta_primario_texto': 'Ver caso INS',
                 'cta_secundario_texto': 'Ver proyectos',
-                'caso_titulo': 'Caso ancla — Bioterio INS',
-                'caso_anio': '2015',
-                'caso_problema': 'Certificación nivel 2 exigida tras el fracaso de una consultora multinacional dos años antes.',
-                'caso_arquitectura': 'Rediseño sistémico de controles ambientales y de contención, tolerancia cero al error.',
-                'caso_resultado': 'Calificó para <b>nivel 3</b> — 100% de pruebas pasadas, cero degradación.',
             },
         )
         home.stats.all().delete()
@@ -38,14 +32,6 @@ class Command(BaseCommand):
             (99.9, '%', 'Disponibilidad', 'secondary'),
         ]):
             HomeStat.objects.create(home=home, valor=valor, sufijo=sufijo, etiqueta=etiqueta, color=color, orden=orden)
-
-        home.case_stats.all().delete()
-        for orden, (valor, etiqueta, color) in enumerate([
-            ('487', 'Pruebas ejecutadas', 'primary'),
-            ('3', 'Nivel de certificación', 'secondary'),
-            ('0', 'Fallos post-certificación', 'primary'),
-        ]):
-            HomeCaseStat.objects.create(home=home, valor=valor, etiqueta=etiqueta, color=color, orden=orden)
 
         self.stdout.write(self.style.SUCCESS('HomeContent listo.'))
 

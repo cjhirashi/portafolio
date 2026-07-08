@@ -9,6 +9,8 @@ PROJECTS = [
         'categoria': 'Systems', 'industria': 'Salud', 'anio': 2015,
         'resultado': 'Rediseño sistémico de controles ambientales y de contención. Calificó para nivel 3 con 100% de pruebas pasadas.',
         'es_ancla': True,
+        'problema': 'Certificación nivel 2 exigida tras el fracaso de una consultora multinacional dos años antes.',
+        'arquitectura_texto': 'Rediseño sistémico de controles ambientales y de contención, tolerancia cero al error.',
         'metrics': [('487', 'Pruebas'), ('Nivel 3', 'Certificación'), ('0', 'Fallos')],
         'links': {},
     },

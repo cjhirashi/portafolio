@@ -12,11 +12,12 @@ from .models import PILARES, AboutContent, HomeContent, Post, Project
 
 
 def home(request):
-    home_content = HomeContent.objects.prefetch_related('stats', 'case_stats').first()
+    home_content = HomeContent.objects.prefetch_related('stats').first()
+    anchor_project = Project.objects.filter(es_ancla=True, publicado=True).prefetch_related('metrics').first()
     context = {
         'home_content': home_content,
         'stats': home_content.stats.all() if home_content else [],
-        'case_stats': home_content.case_stats.all() if home_content else [],
+        'anchor_project': anchor_project,
         'projects': Project.objects.filter(publicado=True).order_by('-es_ancla', '-anio', 'id')[:3],
         'blog_posts': Post.objects.filter(publicado=True).order_by('-fecha_publicacion', 'id')[:3],
     }

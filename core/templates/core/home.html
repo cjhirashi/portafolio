@@ -19,7 +19,7 @@
     <h1 class="home-hero-title">{{ home_content.titulo }}</h1>
     <p class="home-hero-lead">{{ home_content.lead }}</p>
     <div class="home-hero-actions">
-      <a href="{% url 'core:proyectos' %}" class="btn-primary">
+      <a href="{% if anchor_project %}{{ anchor_project.get_absolute_url }}{% else %}{% url 'core:proyectos' %}{% endif %}" class="btn-primary">
         {{ home_content.cta_primario_texto }}
         <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
       </a>
@@ -39,59 +39,69 @@
   </div>
 </div>
 
+{% if anchor_project %}
 <div class="home-section home-section--surface">
   <div class="home-case-grid">
 
     <div class="home-case-main">
       <div class="home-case-main-header">
-        <h2><i data-lucide="anchor" style="width:16px;height:16px"></i> {{ home_content.caso_titulo }}</h2>
-        <span class="home-case-year">{{ home_content.caso_anio }}</span>
+        <h2><i data-lucide="anchor" style="width:16px;height:16px"></i> Caso ancla — {{ anchor_project.titulo }}</h2>
+        <span class="home-case-year">{{ anchor_project.anio }}</span>
       </div>
       <div class="home-case-body">
-        <div>
-          <span class="home-case-kicker">
-            <i data-lucide="circle-alert" style="width:12px;height:12px"></i>
-            Problema
-          </span>
-          <p>{{ home_content.caso_problema }}</p>
-        </div>
-        <div>
-          <span class="home-case-kicker">
-            <i data-lucide="network" style="width:12px;height:12px"></i>
-            Arquitectura
-          </span>
-          <p>{{ home_content.caso_arquitectura }}</p>
-        </div>
+        {% if anchor_project.problema %}
+          <div>
+            <span class="home-case-kicker">
+              <i data-lucide="circle-alert" style="width:12px;height:12px"></i>
+              Problema
+            </span>
+            <p>{{ anchor_project.problema }}</p>
+          </div>
+        {% endif %}
+        {% if anchor_project.arquitectura_texto %}
+          <div>
+            <span class="home-case-kicker">
+              <i data-lucide="network" style="width:12px;height:12px"></i>
+              Arquitectura
+            </span>
+            <p>{{ anchor_project.arquitectura_texto }}</p>
+          </div>
+        {% endif %}
         <div class="home-case-result">
           <span class="home-case-kicker">
             <i data-lucide="trending-up" style="width:12px;height:12px"></i>
             Resultado
           </span>
-          <p>{{ home_content.caso_resultado_html }}</p>
+          <p>{{ anchor_project.resultado }}</p>
         </div>
       </div>
     </div>
 
-    {% for case_stat in case_stats %}
+    {% for metric in anchor_project.metrics.all %}
       {% if forloop.counter == 3 %}
-        <div class="home-case-image" aria-hidden="true">Imagen del caso INS</div>
+        {% if anchor_project.imagen_hero %}
+          <img src="{{ anchor_project.imagen_hero.url }}" alt="{{ anchor_project.titulo }}" class="home-case-image">
+        {% else %}
+          <div class="home-case-image" aria-hidden="true">Imagen del caso</div>
+        {% endif %}
       {% endif %}
       <div class="home-case-stat">
-        <div class="home-case-stat-value home-case-stat-value--{{ case_stat.color }}">{{ case_stat.valor }}</div>
-        <div class="home-case-stat-label">{{ case_stat.etiqueta }}</div>
+        <div class="home-case-stat-value home-case-stat-value--{% cycle 'primary' 'secondary' %}">{{ metric.valor }}</div>
+        <div class="home-case-stat-label">{{ metric.etiqueta }}</div>
       </div>
     {% endfor %}
 
   </div>
 
   <div class="home-case-actions">
-    <a href="{% url 'core:proyectos' %}" class="btn-primary">
+    <a href="{{ anchor_project.get_absolute_url }}" class="btn-primary">
       {{ home_content.cta_primario_texto }}
       <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
     </a>
     <a href="{% url 'core:proyectos' %}" class="btn-ghost">{{ home_content.cta_secundario_texto }}</a>
   </div>
 </div>
+{% endif %}
 
 <div class="home-section">
   <h2 class="home-section-title">

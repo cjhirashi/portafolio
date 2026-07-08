@@ -3,7 +3,6 @@ from django.contrib import admin
 from .models import (
     AboutContent,
     Certification,
-    HomeCaseStat,
     HomeContent,
     HomeStat,
     Post,
@@ -77,14 +76,9 @@ class HomeStatInline(admin.TabularInline):
     extra = 1
 
 
-class HomeCaseStatInline(admin.TabularInline):
-    model = HomeCaseStat
-    extra = 1
-
-
 @admin.register(HomeContent)
 class HomeContentAdmin(SingletonAdmin):
-    inlines = [HomeStatInline, HomeCaseStatInline]
+    inlines = [HomeStatInline]
 
 
 class TimelineEntryInline(admin.TabularInline):

@@ -37,6 +37,7 @@
   height: 112px;
   border-radius: 100%;
   margin: 0 auto 22px;
+  object-fit: cover;
 }
 
 .home-badge {

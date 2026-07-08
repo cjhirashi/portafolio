@@ -7,3 +7,4 @@ staticfiles/
 media/
 _design_handoff/
 *.zip
+DEPLOY.md

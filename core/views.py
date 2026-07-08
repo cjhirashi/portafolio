@@ -18,8 +18,8 @@ def home(request):
         'home_content': home_content,
         'stats': home_content.stats.all() if home_content else [],
         'anchor_project': anchor_project,
-        'projects': Project.objects.filter(publicado=True).order_by('-es_ancla', '-anio', 'id')[:3],
-        'blog_posts': Post.objects.filter(publicado=True).order_by('-fecha_publicacion', 'id')[:3],
+        'projects': Project.objects.filter(publicado=True, destacado_home=True).order_by('-anio', 'id')[:3],
+        'blog_posts': Post.objects.filter(publicado=True, destacado_home=True).order_by('-fecha_publicacion', 'id')[:3],
     }
     return render(request, 'core/home.html', context)
 

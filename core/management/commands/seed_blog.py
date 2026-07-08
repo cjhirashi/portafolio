@@ -30,6 +30,7 @@ POSTS = [
         'tags': 'Arquitectura, Sistemas críticos, Tolerancia cero, Certificación',
         'fecha_publicacion': '2026-05-14',
         'lectura_min': 8,
+        'destacado_home': True,
     },
     {
         'titulo': 'Llevar un modelo a producción con disciplina de sistema crítico',
@@ -37,6 +38,7 @@ POSTS = [
         'extracto': 'Por qué el 90% de los modelos que "funcionan en el notebook" fallan en producción, y cómo evitarlo con ingeniería rigurosa.',
         'fecha_publicacion': '2026-04-02',
         'lectura_min': 11,
+        'destacado_home': True,
     },
     {
         'titulo': 'Cómo modelar mentalmente un sistema de 40 variables interdependientes',
@@ -44,6 +46,7 @@ POSTS = [
         'extracto': 'El método que uso para anticipar interacciones antes de que ocurran, en vez de depurarlas después del incidente.',
         'fecha_publicacion': '2026-02-20',
         'lectura_min': 9,
+        'destacado_home': True,
     },
     {
         'titulo': 'Rollback automático: el patrón que evita que un despliegue se convierta en incidente',
@@ -85,6 +88,7 @@ class Command(BaseCommand):
                     'tags': data.get('tags', ''),
                     'fecha_publicacion': data['fecha_publicacion'],
                     'lectura_min': data['lectura_min'],
+                    'destacado_home': data.get('destacado_home', False),
                 },
             )
             self.stdout.write(self.style.SUCCESS(f'{"Creado" if created else "Actualizado"}: {post.titulo}'))

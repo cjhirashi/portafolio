@@ -22,6 +22,11 @@ class Project(models.Model):
     resumen = models.TextField(help_text='Resumen largo mostrado en el detalle.')
 
     es_ancla = models.BooleanField('Proyecto ancla', default=False)
+    destacado_home = models.BooleanField(
+        'Destacado en Home',
+        default=False,
+        help_text='Se muestra en la sección "Proyectos destacados" del Home (máx. 3).',
+    )
 
     imagen_card = models.ImageField(upload_to='proyectos/cards/', blank=True, null=True)
     imagen_hero = models.ImageField(upload_to='proyectos/hero/', blank=True, null=True)
@@ -137,6 +142,11 @@ class Post(models.Model):
     lectura_min = models.PositiveIntegerField('Minutos de lectura', default=5)
 
     publicado = models.BooleanField(default=True)
+    destacado_home = models.BooleanField(
+        'Destacado en Home',
+        default=False,
+        help_text='Se muestra en la sección "Del blog" del Home (máx. 3).',
+    )
     creado = models.DateTimeField(auto_now_add=True)
 
     class Meta:

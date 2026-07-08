@@ -103,6 +103,7 @@
 </div>
 {% endif %}
 
+{% if projects %}
 <div class="home-section">
   <h2 class="home-section-title">
     <i data-lucide="layers" style="width:20px;height:20px"></i>
@@ -128,7 +129,9 @@
     {% endfor %}
   </div>
 </div>
+{% endif %}
 
+{% if blog_posts %}
 <div class="home-section home-section--surface">
   <h2 class="home-section-title">
     <i data-lucide="book-open" style="width:20px;height:20px"></i>
@@ -150,6 +153,7 @@
     {% endfor %}
   </div>
 </div>
+{% endif %}
 
 {% endblock %}
 

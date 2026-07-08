@@ -38,8 +38,10 @@ class ProjectGalleryImageInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'categoria', 'industria', 'anio', 'es_ancla', 'publicado']
-    list_filter = ['categoria', 'industria', 'publicado', 'es_ancla']
+    list_display = ['titulo', 'categoria', 'industria', 'anio', 'es_ancla', 'destacado_home', 'publicado']
+    list_display_links = ['titulo']
+    list_editable = ['destacado_home']
+    list_filter = ['categoria', 'industria', 'publicado', 'es_ancla', 'destacado_home']
     search_fields = ['titulo', 'resumen']
     prepopulated_fields = {'slug': ('titulo',)}
     inlines = [ProjectMetricInline, ProjectStepInline, ProjectResultadoInline, ProjectGalleryImageInline]
@@ -47,8 +49,10 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'pilar', 'fecha_publicacion', 'publicado']
-    list_filter = ['pilar', 'publicado']
+    list_display = ['titulo', 'pilar', 'fecha_publicacion', 'destacado_home', 'publicado']
+    list_display_links = ['titulo']
+    list_editable = ['destacado_home']
+    list_filter = ['pilar', 'publicado', 'destacado_home']
     search_fields = ['titulo', 'extracto', 'contenido']
     prepopulated_fields = {'slug': ('titulo',)}
     date_hierarchy = 'fecha_publicacion'

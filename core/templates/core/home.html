@@ -1,0 +1,148 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}cjhirashi — Sistemas de datos e IA que no fallan{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'core/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="home-hero">
+  <div class="home-hero-inner">
+    <div class="home-photo" aria-hidden="true">Tu foto</div>
+    <div class="home-badge">
+      <i data-lucide="shield-check" style="width:14px;height:14px"></i>
+      Tolerancia cero al error
+    </div>
+    <h1 class="home-hero-title">Diseño sistemas de datos que operan solos, incluso cuando fallar no es una opción.</h1>
+    <p class="home-hero-lead">20+ años en automatización de sistemas críticos, hoy aplicado a Data Science e IA en producción.</p>
+    <div class="home-hero-actions">
+      <a href="{% url 'core:proyectos' %}" class="btn-primary">
+        Ver caso INS
+        <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
+      </a>
+      <a href="{% url 'core:proyectos' %}" class="btn-ghost">Ver proyectos</a>
+    </div>
+  </div>
+
+  <div class="home-stats">
+    {% for stat in stats %}
+      <div class="home-stat">
+        <div class="home-stat-value home-stat-value--{{ stat.color }}"
+             data-count-to="{{ stat.value }}"
+             data-count-suffix="{{ stat.suffix }}">0</div>
+        <div class="home-stat-label">{{ stat.label }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="home-section home-section--surface">
+  <div class="home-case-grid">
+
+    <div class="home-case-main">
+      <div class="home-case-main-header">
+        <h2><i data-lucide="anchor" style="width:16px;height:16px"></i> Caso ancla — Bioterio INS</h2>
+        <span class="home-case-year">2015</span>
+      </div>
+      <div class="home-case-body">
+        <div>
+          <span class="home-case-kicker">
+            <i data-lucide="circle-alert" style="width:12px;height:12px"></i>
+            Problema
+          </span>
+          <p>Certificación nivel 2 exigida tras el fracaso de una consultora multinacional dos años antes.</p>
+        </div>
+        <div>
+          <span class="home-case-kicker">
+            <i data-lucide="network" style="width:12px;height:12px"></i>
+            Arquitectura
+          </span>
+          <p>Rediseño sistémico de controles ambientales y de contención, tolerancia cero al error.</p>
+        </div>
+        <div class="home-case-result">
+          <span class="home-case-kicker">
+            <i data-lucide="trending-up" style="width:12px;height:12px"></i>
+            Resultado
+          </span>
+          <p>Calificó para <b>nivel 3</b> — 100% de pruebas pasadas, cero degradación.</p>
+        </div>
+      </div>
+    </div>
+
+    {% for case_stat in case_stats %}
+      {% if forloop.counter == 3 %}
+        <div class="home-case-image" aria-hidden="true">Imagen del caso INS</div>
+      {% endif %}
+      <div class="home-case-stat">
+        <div class="home-case-stat-value home-case-stat-value--{{ case_stat.color }}">{{ case_stat.value }}</div>
+        <div class="home-case-stat-label">{{ case_stat.label }}</div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  <div class="home-case-actions">
+    <a href="{% url 'core:proyectos' %}" class="btn-primary">
+      Ver caso INS
+      <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
+    </a>
+    <a href="{% url 'core:proyectos' %}" class="btn-ghost">Ver proyectos</a>
+  </div>
+</div>
+
+<div class="home-section">
+  <h2 class="home-section-title">
+    <i data-lucide="layers" style="width:20px;height:20px"></i>
+    Proyectos destacados
+  </h2>
+  <div class="home-card-grid">
+    {% for project in projects %}
+      <a href="{{ project.get_absolute_url }}" class="home-project-card">
+        {% if project.imagen_card %}
+          <img src="{{ project.imagen_card.url }}" alt="{{ project.titulo }}" class="home-card-image">
+        {% else %}
+          <div class="home-card-image" aria-hidden="true">Imagen del proyecto</div>
+        {% endif %}
+        <div class="home-card-body">
+          <div class="home-project-tags">
+            <span class="tag tag--primary">{{ project.categoria }}</span>
+            <span class="tag tag--secondary">{{ project.industria }}</span>
+          </div>
+          <h3 class="home-card-title">{{ project.titulo }}</h3>
+          <p class="home-card-text">{{ project.resultado }}</p>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="home-section home-section--surface">
+  <h2 class="home-section-title">
+    <i data-lucide="book-open" style="width:20px;height:20px"></i>
+    Del blog
+  </h2>
+  <div class="home-card-grid">
+    {% for post in blog_posts %}
+      <a href="{{ post.get_absolute_url }}" class="home-blog-card">
+        {% if post.imagen_portada %}
+          <img src="{{ post.imagen_portada.url }}" alt="{{ post.titulo }}" class="home-card-image home-card-image--sm">
+        {% else %}
+          <div class="home-card-image home-card-image--sm" aria-hidden="true">Imagen del artículo</div>
+        {% endif %}
+        <div class="home-card-body">
+          <span class="home-blog-pilar">{{ post.pilar }}</span>
+          <h3 class="home-card-title home-card-title--sm">{{ post.titulo }}</h3>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="{% static 'core/js/home.js' %}" defer></script>
+{% endblock %}

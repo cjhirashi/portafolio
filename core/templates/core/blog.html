@@ -1,0 +1,70 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Blog — cjhirashi{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'core/css/proyectos.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="py-hero">
+  <h1><i data-lucide="book-open" style="width:32px;height:32px"></i>Blog</h1>
+  <p>Pensamiento sistémico aplicado a arquitectura de datos, IA y sistemas críticos.</p>
+</div>
+
+<form method="get" class="py-search-wrap">
+  <div class="py-search">
+    <i data-lucide="search" style="width:16px;height:16px"></i>
+    <input type="text" name="q" value="{{ q }}" placeholder="Buscar por título…">
+  </div>
+  <input type="hidden" name="pilar" value="{{ pilar }}">
+  <input type="hidden" name="orden" value="{{ orden }}">
+</form>
+
+<div class="py-controls">
+  <div class="py-filters">
+    {% for f in filters %}
+      <a href="?pilar={{ f.label|urlencode }}&amp;q={{ q|urlencode }}&amp;orden={{ orden|urlencode }}"
+         class="py-filter-chip{% if f.activo %} py-filter-chip--active{% endif %}">{{ f.label }}</a>
+    {% endfor %}
+  </div>
+  <div class="py-sort">
+    <a href="?pilar={{ pilar|urlencode }}&amp;q={{ q|urlencode }}&amp;orden={{ orden_siguiente|urlencode }}" class="py-sort-toggle">
+      <i data-lucide="arrow-down-up" style="width:14px;height:14px"></i> {{ orden_label }}
+    </a>
+  </div>
+</div>
+
+<div class="bg-grid-wrap">
+  <div class="bg-grid">
+    {% for post in posts %}
+      <a href="{{ post.get_absolute_url }}" class="bg-card">
+        {% if post.imagen_portada %}
+          <img src="{{ post.imagen_portada.url }}" alt="{{ post.titulo }}" class="bg-card-image">
+        {% else %}
+          <div class="bg-card-image bg-card-image--placeholder" aria-hidden="true">Imagen del artículo</div>
+        {% endif %}
+        <div class="bg-card-body">
+          <div class="bg-card-pilar-wrap">
+            <span class="bg-pilar-badge bg-pilar-badge--{% if post.pilar == 'Arquitectura' %}primary{% elif post.pilar == 'Data Science e IA' %}secondary{% else %}accent{% endif %}">{{ post.pilar }}</span>
+          </div>
+          <div class="bg-card-title-wrap">
+            <h3 class="bg-card-title">{{ post.titulo }}</h3>
+          </div>
+          <p class="bg-card-text">{{ post.extracto }}</p>
+          <div class="bg-card-footer">
+            <span>{{ post.fecha_publicacion|date:"j M Y" }}</span>
+            <span class="bg-card-lectura"><i data-lucide="clock" style="width:13px;height:13px"></i> {{ post.lectura_min }} min</span>
+          </div>
+        </div>
+      </a>
+    {% empty %}
+      <p class="py-empty">No hay artículos para este filtro.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

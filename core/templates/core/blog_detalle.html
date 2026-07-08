@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}{{ post.titulo }} — cjhirashi{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'core/css/blog_detalle.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="bd-breadcrumb">
+  <a href="{% url 'core:blog' %}">
+    <i data-lucide="arrow-left" style="width:15px;height:15px"></i> Volver al blog
+  </a>
+</div>
+
+<div class="bd-header">
+  <span class="bg-pilar-badge bg-pilar-badge--{% if post.pilar == 'Arquitectura' %}primary{% elif post.pilar == 'Data Science e IA' %}secondary{% else %}accent{% endif %} bd-pilar-badge">{{ post.pilar }}</span>
+  <h1 class="bd-title">{{ post.titulo }}</h1>
+  <div class="bd-meta">
+    <span>Carlos A. Jiménez Hirashi</span>
+    <span class="bd-dot"></span>
+    <span>{{ post.fecha_publicacion|date:"j M Y" }}</span>
+    <span class="bd-dot"></span>
+    <span class="bd-lectura"><i data-lucide="clock" style="width:14px;height:14px"></i> {{ post.lectura_min }} min</span>
+  </div>
+</div>
+
+<div class="bd-cover-wrap">
+  {% if post.imagen_portada %}
+    <img src="{{ post.imagen_portada.url }}" alt="{{ post.titulo }}" class="bd-cover">
+  {% else %}
+    <div class="bd-cover bd-cover--placeholder" aria-hidden="true">Imagen de portada del artículo</div>
+  {% endif %}
+</div>
+
+<div class="bd-body-wrap">
+  <div class="article-md">{{ post.contenido_html }}</div>
+</div>
+
+{% if post.tags_list %}
+  <div class="bd-tags-wrap">
+    <div class="bd-tags-label"><i data-lucide="tag" style="width:13px;height:13px"></i>Temas</div>
+    <div class="bd-tags">
+      {% for tag in post.tags_list %}
+        <span class="bd-tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+<div class="bd-author-wrap">
+  <div class="bd-author">
+    <div class="bd-author-avatar" aria-hidden="true">Foto</div>
+    <div>
+      <div class="bd-author-name">Carlos A. Jiménez Hirashi</div>
+      <p class="bd-author-bio">Arquitecto Senior de Sistemas de Datos con 20+ años de trayectoria en automatización de sistemas críticos, hoy enfocado en Data Science e IA.</p>
+    </div>
+  </div>
+</div>
+
+<div class="bd-next-wrap">
+  <a href="{{ next_post.get_absolute_url }}" class="bd-next">
+    <div>
+      <div class="bd-next-label"><i data-lucide="corner-down-right" style="width:14px;height:14px"></i>Siguiente artículo</div>
+      <h3>{{ next_post.titulo }}</h3>
+    </div>
+    <span class="bd-next-arrow">
+      <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+    </span>
+  </a>
+</div>
+
+{% endblock %}

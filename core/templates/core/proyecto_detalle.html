@@ -1,0 +1,168 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}{{ project.titulo }} — cjhirashi{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'core/css/proyecto_detalle.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="pd-breadcrumb">
+  <a href="{% url 'core:proyectos' %}">
+    <i data-lucide="arrow-left" style="width:15px;height:15px"></i> Volver a proyectos
+  </a>
+</div>
+
+<div class="pd-hero">
+  <div class="pd-hero-tags">
+    <span class="tag tag--secondary">{{ project.categoria }}</span>
+    <span class="tag tag--primary">{{ project.industria }}</span>
+    <span class="pd-hero-year">{{ project.anio }}</span>
+  </div>
+  <h1 class="pd-hero-title">{{ project.titulo }}</h1>
+  <p class="pd-hero-lead">{{ project.resumen }}</p>
+
+  <div class="pd-links">
+    {% if project.has_web %}
+      <a href="{{ project.web_url }}" target="_blank" rel="noopener" class="btn-primary">
+        <i data-lucide="globe" style="width:15px;height:15px"></i> Ver demo
+      </a>
+    {% endif %}
+    {% if project.has_github %}
+      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="pd-link-outline">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.98 5.24.98 11.5c0 4.99 3.24 9.22 7.73 10.71.56.1.77-.24.77-.54v-2.02c-3.14.68-3.8-1.5-3.8-1.5-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.4-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.42.11-2.96 0 0 .95-.3 3.12 1.16a10.8 10.8 0 0 1 5.68 0c2.16-1.46 3.11-1.16 3.11-1.16.62 1.54.23 2.68.11 2.96.73.79 1.16 1.79 1.16 3.02 0 4.32-2.63 5.28-5.14 5.55.4.35.77 1.04.77 2.1v3.11c0 .3.2.65.78.54A11.5 11.5 0 0 0 23 11.5C23 5.24 18.27.5 12 .5Z"></path></svg>
+        Código
+      </a>
+    {% endif %}
+    {% if project.has_notebook %}
+      <a href="{{ project.notebook_url }}" target="_blank" rel="noopener" class="pd-link-outline">
+        <i data-lucide="notebook-text" style="width:15px;height:15px"></i> Notebook
+      </a>
+    {% endif %}
+  </div>
+
+  {% if project.imagen_hero %}
+    <img src="{{ project.imagen_hero.url }}" alt="{{ project.titulo }}" class="pd-hero-image">
+  {% else %}
+    <div class="pd-hero-image pd-hero-image--placeholder" aria-hidden="true">Imagen principal del proyecto</div>
+  {% endif %}
+</div>
+
+{% if project.metrics.all %}
+  <div class="pd-metrics-wrap">
+    <div class="pd-metrics" style="grid-template-columns: repeat({{ project.metrics.all|length }}, 1fr)">
+      {% for m in project.metrics.all %}
+        <div class="pd-metric">
+          <div class="pd-metric-value">{{ m.valor }}</div>
+          <div class="pd-metric-label">{{ m.etiqueta }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% if project.problema %}
+  <div class="pd-section">
+    <div class="pd-section-label"><i data-lucide="circle-alert" style="width:15px;height:15px"></i>01 · Contexto</div>
+    <div>
+      <h2 class="pd-section-title">El problema</h2>
+      <p class="pd-body-text">{{ project.problema }}</p>
+    </div>
+  </div>
+{% endif %}
+
+{% if project.solucion %}
+  <div class="pd-section">
+    <div class="pd-section-label"><i data-lucide="compass" style="width:15px;height:15px"></i>02 · Enfoque</div>
+    <div>
+      <h2 class="pd-section-title">La solución</h2>
+      <p class="pd-body-text pd-body-text--spaced">{{ project.solucion }}</p>
+      {% if project.pasos.all %}
+        <div class="pd-steps">
+          {% for paso in project.pasos.all %}
+            <div class="pd-step">
+              <div class="pd-step-number">{{ forloop.counter }}</div>
+              <p>{{ paso.texto }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% if project.arquitectura_texto %}
+  <div class="pd-section">
+    <div class="pd-section-label"><i data-lucide="network" style="width:15px;height:15px"></i>03 · Arquitectura</div>
+    <div>
+      <h2 class="pd-section-title">Cómo funciona el sistema</h2>
+      <p class="pd-body-text pd-body-text--spaced">{{ project.arquitectura_texto }}</p>
+      {% if project.imagen_arquitectura %}
+        <img src="{{ project.imagen_arquitectura.url }}" alt="Arquitectura de {{ project.titulo }}" class="pd-arch-image">
+      {% else %}
+        <div class="pd-arch-image pd-arch-image--placeholder" aria-hidden="true">Diagrama de arquitectura del sistema</div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% if project.resultados.all %}
+  <div class="pd-results-wrap">
+    <div class="pd-results-inner">
+      <div class="pd-section-label pd-section-label--centered"><i data-lucide="trending-up" style="width:15px;height:15px"></i>04 · Resultados</div>
+      <h2 class="pd-results-title">Impacto medido</h2>
+      <div class="pd-results-grid">
+        {% for r in project.resultados.all %}
+          <div class="pd-result-card">
+            <div class="pd-result-value pd-result-value--{% cycle 'primary' 'secondary' 'primary' %}">{{ r.valor }}</div>
+            <div class="pd-result-label">{{ r.etiqueta }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if project.galeria.all %}
+  <div class="pd-gallery-wrap">
+    <div class="pd-section-label pd-section-label--centered"><i data-lucide="image" style="width:15px;height:15px"></i>05 · Galería</div>
+    <h2 class="pd-gallery-title">Vistazo al producto</h2>
+    <div class="pd-gallery-grid">
+      {% for g in project.galeria.all %}
+        {% if g.imagen %}
+          <img src="{{ g.imagen.url }}" alt="{{ g.placeholder }}" class="pd-gallery-image">
+        {% else %}
+          <div class="pd-gallery-image pd-gallery-image--placeholder" aria-hidden="true">{{ g.placeholder }}</div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% if project.stack_list %}
+  <div class="pd-stack-wrap">
+    <div class="pd-section-label pd-section-label--centered"><i data-lucide="layers" style="width:15px;height:15px"></i>06 · Stack</div>
+    <h2 class="pd-stack-title">Tecnologías utilizadas</h2>
+    <div class="pd-stack-tags">
+      {% for tech in project.stack_list %}
+        <span class="pd-stack-tag">{{ tech }}</span>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+<div class="pd-next-wrap">
+  <a href="{{ next_project.get_absolute_url }}" class="pd-next">
+    <div>
+      <div class="pd-section-label"><i data-lucide="corner-down-right" style="width:14px;height:14px"></i>Siguiente proyecto</div>
+      <h3>{{ next_project.titulo }}</h3>
+    </div>
+    <span class="pd-next-arrow">
+      <i data-lucide="arrow-right" style="width:22px;height:22px"></i>
+    </span>
+  </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+[Unit]
+Description=Gunicorn - portafolio-cjhirashi
+After=network.target
+
+[Service]
+User=REEMPLAZA_USUARIO
+Group=www-data
+WorkingDirectory=/home/REEMPLAZA_USUARIO/portafolio-cjhirashi
+EnvironmentFile=/home/REEMPLAZA_USUARIO/portafolio-cjhirashi/.env
+ExecStart=/home/REEMPLAZA_USUARIO/portafolio-cjhirashi/.venv/bin/gunicorn \
+    config.wsgi:application \
+    --bind 127.0.0.1:8000 \
+    --workers 3 \
+    --timeout 60 \
+    --access-logfile - \
+    --error-logfile -
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

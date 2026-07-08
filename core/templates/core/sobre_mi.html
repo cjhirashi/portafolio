@@ -1,0 +1,126 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Sobre mí — cjhirashi{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'core/css/sobre_mi.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="sm-hero">
+  <div class="sm-hero-photo" aria-hidden="true">Tu foto</div>
+  <div>
+    <div class="sm-badge">
+      <i data-lucide="shield-check" style="width:14px;height:14px"></i>
+      Tolerancia cero al error
+    </div>
+    <h1 class="sm-hero-title">Carlos A. Jiménez Hirashi</h1>
+    <p class="sm-hero-lead">Arquitecto Senior de Sistemas de Datos. 20+ años diseñando sistemas críticos que no pueden fallar — hoy aplicado a Data Science e IA en producción.</p>
+    <div class="sm-hero-actions">
+      <a href="{% url 'core:contacto' %}" class="btn-primary">
+        Hablemos
+        <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
+      </a>
+      <a href="{% url 'core:proyectos' %}" class="btn-ghost">Ver proyectos</a>
+    </div>
+  </div>
+</div>
+
+<div class="sm-section sm-section--surface">
+  <div class="sm-section-grid">
+    <div class="sm-section-label">
+      <i data-lucide="compass" style="width:15px;height:15px"></i>01 · Filosofía
+    </div>
+    <div>
+      <h2 class="sm-section-title">Diseñar para que el error no exista</h2>
+      <div class="sm-quote">
+        <p>La mayoría de los sistemas se diseñan para recuperarse de un fallo. Yo los diseño para que ese fallo nunca pueda ocurrir en primer lugar.</p>
+      </div>
+      <p class="sm-body-text">Cada interacción entre componentes se modela antes de escribir una línea de código, buscando específicamente los puntos donde variables interdependientes podrían converger en un fallo. Esa disciplina viene de dos décadas comisionando sistemas industriales donde un error no es un bug — es un incidente. Hoy aplico el mismo rigor a modelos de IA y pipelines de datos en producción.</p>
+    </div>
+  </div>
+</div>
+
+<div class="sm-section">
+  <div class="sm-section-grid">
+    <div class="sm-section-label">
+      <i data-lucide="route" style="width:15px;height:15px"></i>02 · Trayectoria
+    </div>
+    <div>
+      <h2 class="sm-section-title sm-section-title--spaced">20+ años, dos disciplinas, un mismo estándar</h2>
+      <div class="sm-timeline">
+        {% for item in timeline %}
+          <div class="sm-timeline-item">
+            <div class="sm-timeline-dot"></div>
+            <div class="sm-timeline-header">
+              <span class="sm-timeline-period">{{ item.periodo }}</span>
+              <span class="sm-timeline-role">{{ item.rol }}</span>
+              <span class="sm-timeline-context">— {{ item.contexto }}</span>
+            </div>
+            <p class="sm-timeline-text">{{ item.logro }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sm-section sm-section--surface">
+  <div class="sm-section-grid">
+    <div class="sm-section-label">
+      <i data-lucide="award" style="width:15px;height:15px"></i>03 · Credenciales
+    </div>
+    <div>
+      <h2 class="sm-section-title">Certificaciones</h2>
+      <div class="sm-certs-grid">
+        {% for cert in certs %}
+          <div class="sm-cert-card">
+            <div class="sm-cert-icon sm-cert-icon--{{ cert.color }}">
+              <i data-lucide="{{ cert.icon }}" style="width:19px;height:19px"></i>
+            </div>
+            <div>
+              <div class="sm-cert-title">{{ cert.titulo }}</div>
+              <div class="sm-cert-meta">{{ cert.entidad }} · {{ cert.anio }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sm-section">
+  <div class="sm-section-grid">
+    <div class="sm-section-label">
+      <i data-lucide="layers" style="width:15px;height:15px"></i>04 · Stack
+    </div>
+    <div class="sm-skills">
+      <h2 class="sm-section-title sm-section-title--flush">Habilidades técnicas</h2>
+      {% for group in skill_groups %}
+        <div>
+          <div class="sm-skill-category">{{ group.categoria }}</div>
+          <div class="sm-skill-tags">
+            {% for item in group.items %}
+              <span class="sm-skill-tag">{{ item }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="sm-cta-wrap">
+  <div class="sm-cta">
+    <h2>¿Un sistema que no puede fallar?</h2>
+    <p>Hablemos de tu proyecto de datos, IA o automatización crítica.</p>
+    <a href="{% url 'core:contacto' %}" class="btn-primary">
+      Ir a contacto
+      <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
+    </a>
+  </div>
+</div>
+
+{% endblock %}

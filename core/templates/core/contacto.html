@@ -1,0 +1,109 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Contacto — cjhirashi{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'core/css/contacto.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contacto-content">
+
+  <div>
+    <div class="contacto-badge">
+      <i data-lucide="circle-check" style="width:14px;height:14px"></i>
+      Disponible para nuevos proyectos
+    </div>
+    <h1 class="contacto-title">Hablemos de tu proyecto</h1>
+    <p class="contacto-lead">Sistemas de datos, IA o automatización crítica que no pueden fallar. Cuéntame qué estás construyendo.</p>
+
+    <div class="contacto-channels">
+      <a href="mailto:carlos@cjhirashi.com" class="contacto-channel">
+        <span class="contacto-channel-icon">
+          <i data-lucide="mail" style="width:19px;height:19px"></i>
+        </span>
+        <span>
+          <div class="contacto-channel-label">Email</div>
+          <div class="contacto-channel-value">carlos@cjhirashi.com</div>
+        </span>
+      </a>
+      <a href="https://wa.me/525513710160" target="_blank" rel="noopener" class="contacto-channel">
+        <span class="contacto-channel-icon">
+          <i data-lucide="message-circle" style="width:19px;height:19px"></i>
+        </span>
+        <span>
+          <div class="contacto-channel-label">WhatsApp</div>
+          <div class="contacto-channel-value">+52 55 1371 0160</div>
+        </span>
+      </a>
+      <div class="contacto-channel">
+        <span class="contacto-channel-icon">
+          <i data-lucide="map-pin" style="width:19px;height:19px"></i>
+        </span>
+        <span>
+          <div class="contacto-channel-label">Ubicación</div>
+          <div class="contacto-channel-value">Ciudad de México, México · GMT-6</div>
+        </span>
+      </div>
+    </div>
+
+    <div class="contacto-social">
+      <a href="https://github.com/cjhirashi" target="_blank" rel="noopener" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.98 5.24.98 11.5c0 4.99 3.24 9.22 7.73 10.71.56.1.77-.24.77-.54v-2.02c-3.14.68-3.8-1.5-3.8-1.5-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.4-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.42.11-2.96 0 0 .95-.3 3.12 1.16a10.8 10.8 0 0 1 5.68 0c2.16-1.46 3.11-1.16 3.11-1.16.62 1.54.23 2.68.11 2.96.73.79 1.16 1.79 1.16 3.02 0 4.32-2.63 5.28-5.14 5.55.4.35.77 1.04.77 2.1v3.11c0 .3.2.65.78.54A11.5 11.5 0 0 0 23 11.5C23 5.24 18.27.5 12 .5Z"></path></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/cjhirashi" target="_blank" rel="noopener" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"></path></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+
+  <div class="contacto-form-card">
+    {% if enviado %}
+      <div class="contacto-sent">
+        <div class="contacto-sent-icon">
+          <i data-lucide="check" style="width:26px;height:26px"></i>
+        </div>
+        <h2>Tu mensaje fue enviado</h2>
+        <p>Gracias por escribir. Te responderé lo antes posible a tu correo.</p>
+        <a href="{% url 'core:contacto' %}" class="contacto-sent-reset">Enviar otro mensaje</a>
+      </div>
+    {% else %}
+      <h2 class="contacto-form-title">
+        <i data-lucide="send" style="width:18px;height:18px"></i>
+        Envía un mensaje
+      </h2>
+
+      {% for message in messages %}
+        <div class="contacto-alert">{{ message }}</div>
+      {% endfor %}
+
+      <form method="post" class="contacto-form" novalidate>
+        {% csrf_token %}
+        <div>
+          <label class="contacto-field-label" for="{{ form.nombre.id_for_label }}">Nombre</label>
+          {{ form.nombre }}
+          {% if form.nombre.errors %}<div class="contacto-field-error">{{ form.nombre.errors.0 }}</div>{% endif %}
+        </div>
+        <div>
+          <label class="contacto-field-label" for="{{ form.email.id_for_label }}">Email</label>
+          {{ form.email }}
+          {% if form.email.errors %}<div class="contacto-field-error">{{ form.email.errors.0 }}</div>{% endif %}
+        </div>
+        <div>
+          <label class="contacto-field-label" for="{{ form.mensaje.id_for_label }}">Mensaje</label>
+          {{ form.mensaje }}
+          {% if form.mensaje.errors %}<div class="contacto-field-error">{{ form.mensaje.errors.0 }}</div>{% endif %}
+        </div>
+        <button type="submit" class="btn-primary">
+          Enviar mensaje
+          <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
+        </button>
+      </form>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

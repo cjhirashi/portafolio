@@ -1,0 +1,228 @@
+.contacto-content {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 72px 56px 96px;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 72px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .contacto-content {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 48px 24px 72px;
+  }
+}
+
+.contacto-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: var(--secondary-container);
+  color: var(--secondary);
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+
+.contacto-badge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.contacto-title {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+
+.contacto-lead {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 40px;
+  max-width: 440px;
+}
+
+.contacto-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.contacto-channel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  transition: border-color 0.15s ease;
+}
+
+a.contacto-channel:hover {
+  border-color: var(--primary);
+}
+
+.contacto-channel-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--primary-container);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contacto-channel-icon svg,
+.contacto-channel-icon i {
+  width: 19px;
+  height: 19px;
+}
+
+.contacto-channel-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.contacto-channel-value {
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.contacto-social {
+  display: flex;
+  gap: 12px;
+}
+
+.contacto-form-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.contacto-form-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contacto-form-title svg {
+  width: 18px;
+  height: 18px;
+  color: var(--primary);
+}
+
+.contacto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contacto-field-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.contacto-field-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  outline: none;
+}
+
+.contacto-field-input:focus {
+  border-color: var(--primary);
+}
+
+textarea.contacto-field-input {
+  resize: vertical;
+}
+
+.contacto-field-error {
+  color: var(--accent);
+  font-size: 12.5px;
+  margin-top: 6px;
+}
+
+.contacto-alert {
+  margin: 0 0 20px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--accent-container);
+  color: var(--text);
+  font-size: 13.5px;
+}
+
+.contacto-sent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.contacto-sent-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 100px;
+  background: var(--secondary-container);
+  color: var(--secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.contacto-sent-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.contacto-sent h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+
+.contacto-sent p {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 24px;
+  max-width: 320px;
+}
+
+.contacto-sent-reset {
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+}

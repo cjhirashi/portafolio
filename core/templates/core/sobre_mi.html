@@ -56,7 +56,7 @@
             <div class="sm-timeline-dot"></div>
             <div class="sm-timeline-header">
               <span class="sm-timeline-period">{{ item.periodo }}</span>
-              <span class="sm-timeline-role">{{ item.rol }}</span>
+              <span class="sm-timeline-role">{{ item.rol }}{% if item.empresa %} · {{ item.empresa }}{% endif %}</span>
               <span class="sm-timeline-context">— {{ item.contexto }}</span>
             </div>
             <p class="sm-timeline-text">{{ item.logro }}</p>

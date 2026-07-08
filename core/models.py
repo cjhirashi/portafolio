@@ -408,6 +408,7 @@ class TimelineEntry(models.Model):
     about = models.ForeignKey(AboutContent, related_name='timeline', on_delete=models.CASCADE)
     periodo = models.CharField(max_length=50, help_text='Rango de años, ej: 2004 — 2013, o 2021 — presente.')
     rol = models.CharField(max_length=150, help_text='Puesto o rol durante ese periodo.')
+    empresa = models.CharField(max_length=150, blank=True, help_text='Empresa u organización donde ocupaste ese rol.')
     contexto = models.CharField(max_length=150, help_text='Contexto corto entre guiones, ej: Automatización industrial (HVAC).')
     logro = models.TextField(help_text='Descripción del logro o actividad principal de esa etapa.')
     orden = models.PositiveIntegerField(default=0, help_text='Controla el orden en la línea de tiempo (menor primero, de arriba a abajo).')

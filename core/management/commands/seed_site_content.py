@@ -54,7 +54,7 @@ class Command(BaseCommand):
         )
 
         about.timeline.all().delete()
-        for orden, (periodo, rol, contexto, logro) in enumerate([
+        for orden, (periodo, rol, responsabilidades, logro) in enumerate([
             ('2004 — 2013', 'Ingeniero de Sistemas de Control', 'Automatización industrial (HVAC)',
              'Comisionamiento de sistemas de control ambiental en más de 20 proyectos industriales, sin fallos post-arranque.'),
             ('2013 — 2018', 'Arquitecto de Sistemas Críticos', 'Infraestructura de bioseguridad',
@@ -64,7 +64,7 @@ class Command(BaseCommand):
             ('2021 — presente', 'Arquitecto Senior de Sistemas de Datos', 'Data Science, ML Ops y automatización',
              'Orquestación de modelos en tiempo real, pipelines de ingesta crítica y monitoreo autónomo para salud, fintech y logística.'),
         ]):
-            TimelineEntry.objects.create(about=about, periodo=periodo, rol=rol, contexto=contexto, logro=logro, orden=orden)
+            TimelineEntry.objects.create(about=about, periodo=periodo, rol=rol, responsabilidades=responsabilidades, logro=logro, orden=orden)
 
         about.certs.all().delete()
         for orden, (icono, titulo, entidad, anio, color) in enumerate([

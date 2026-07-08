@@ -217,11 +217,6 @@
   font-weight: 700;
 }
 
-.sm-timeline-context {
-  font-size: 13.5px;
-  color: var(--text-secondary);
-}
-
 .sm-timeline-text {
   font-size: 14.5px;
   line-height: 1.6;

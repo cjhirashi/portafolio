@@ -229,6 +229,10 @@
   max-width: 720px;
 }
 
+.sm-timeline-text + .sm-timeline-text {
+  margin-top: 10px;
+}
+
 /* Certifications */
 
 .sm-certs-grid {

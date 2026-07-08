@@ -1,12 +1,19 @@
 from django.contrib import admin
 
 from .models import (
+    AboutContent,
+    Certification,
+    HomeCaseStat,
+    HomeContent,
+    HomeStat,
     Post,
     Project,
     ProjectGalleryImage,
     ProjectMetric,
     ProjectResultado,
     ProjectStep,
+    SkillGroup,
+    TimelineEntry,
 )
 
 
@@ -46,3 +53,55 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ['titulo', 'extracto', 'contenido']
     prepopulated_fields = {'slug': ('titulo',)}
     date_hierarchy = 'fecha_publicacion'
+
+
+class SingletonAdmin(admin.ModelAdmin):
+    """Un solo registro editable: sin lista, sin permiso de agregar si ya existe."""
+
+    def has_add_permission(self, request):
+        return not self.model.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        obj = self.model.objects.first()
+        if obj:
+            from django.shortcuts import redirect
+            return redirect('admin:%s_%s_change' % (self.model._meta.app_label, self.model._meta.model_name), obj.pk)
+        return super().changelist_view(request, extra_context)
+
+
+class HomeStatInline(admin.TabularInline):
+    model = HomeStat
+    extra = 1
+
+
+class HomeCaseStatInline(admin.TabularInline):
+    model = HomeCaseStat
+    extra = 1
+
+
+@admin.register(HomeContent)
+class HomeContentAdmin(SingletonAdmin):
+    inlines = [HomeStatInline, HomeCaseStatInline]
+
+
+class TimelineEntryInline(admin.TabularInline):
+    model = TimelineEntry
+    extra = 1
+
+
+class CertificationInline(admin.TabularInline):
+    model = Certification
+    extra = 1
+
+
+class SkillGroupInline(admin.TabularInline):
+    model = SkillGroup
+    extra = 1
+
+
+@admin.register(AboutContent)
+class AboutContentAdmin(SingletonAdmin):
+    inlines = [TimelineEntryInline, CertificationInline, SkillGroupInline]

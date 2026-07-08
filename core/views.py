@@ -8,25 +8,15 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from .forms import ContactoForm
-from .models import PILARES, Post, Project
+from .models import PILARES, AboutContent, HomeContent, Post, Project
 
-HOME_STATS = [
-    {'value': 12, 'suffix': '', 'label': 'Certificaciones', 'color': 'primary'},
-    {'value': 8, 'suffix': '', 'label': 'Sistemas críticos', 'color': 'secondary'},
-    {'value': 20, 'suffix': '+', 'label': 'Años de experiencia', 'color': 'primary'},
-    {'value': 99.9, 'suffix': '%', 'label': 'Disponibilidad', 'color': 'secondary'},
-]
-
-HOME_CASE_STATS = [
-    {'value': '487', 'label': 'Pruebas ejecutadas', 'color': 'primary'},
-    {'value': '3', 'label': 'Nivel de certificación', 'color': 'secondary'},
-    {'value': '0', 'label': 'Fallos post-certificación', 'color': 'primary'},
-]
 
 def home(request):
+    home_content = HomeContent.objects.prefetch_related('stats', 'case_stats').first()
     context = {
-        'stats': HOME_STATS,
-        'case_stats': HOME_CASE_STATS,
+        'home_content': home_content,
+        'stats': home_content.stats.all() if home_content else [],
+        'case_stats': home_content.case_stats.all() if home_content else [],
         'projects': Project.objects.filter(publicado=True).order_by('-es_ancla', '-anio', 'id')[:3],
         'blog_posts': Post.objects.filter(publicado=True).order_by('-fecha_publicacion', 'id')[:3],
     }
@@ -121,52 +111,13 @@ def blog_detalle(request, slug):
     return render(request, 'core/blog_detalle.html', {'post': post, 'next_post': next_post})
 
 
-SOBRE_MI_TIMELINE = [
-    {
-        'periodo': '2004 — 2013',
-        'rol': 'Ingeniero de Sistemas de Control',
-        'contexto': 'Automatización industrial (HVAC)',
-        'logro': 'Comisionamiento de sistemas de control ambiental en más de 20 proyectos industriales, sin fallos post-arranque.',
-    },
-    {
-        'periodo': '2013 — 2018',
-        'rol': 'Arquitecto de Sistemas Críticos',
-        'contexto': 'Infraestructura de bioseguridad',
-        'logro': 'Rediseño sistémico de controles ambientales y de contención para el Bioterio del Instituto Nacional de Salud — certificó nivel 3 con 100% de pruebas pasadas.',
-    },
-    {
-        'periodo': '2018 — 2021',
-        'rol': 'Transición a Data Science e IA',
-        'contexto': 'Formación y primeros pilotos',
-        'logro': 'Aplicó el mismo método de tolerancia cero al diseño de pipelines de datos y modelos predictivos en producción.',
-    },
-    {
-        'periodo': '2021 — presente',
-        'rol': 'Arquitecto Senior de Sistemas de Datos',
-        'contexto': 'Data Science, ML Ops y automatización',
-        'logro': 'Orquestación de modelos en tiempo real, pipelines de ingesta crítica y monitoreo autónomo para salud, fintech y logística.',
-    },
-]
-
-SOBRE_MI_CERTS = [
-    {'icon': 'shield-check', 'titulo': 'Certificación de Bioseguridad Nivel 3', 'entidad': 'Instituto Nacional de Salud', 'anio': '2015', 'color': 'primary'},
-    {'icon': 'network', 'titulo': 'Arquitectura Empresarial (TOGAF)', 'entidad': 'The Open Group', 'anio': '2019', 'color': 'secondary'},
-    {'icon': 'cloud', 'titulo': 'Arquitecto de Soluciones en la Nube', 'entidad': 'AWS', 'anio': '2021', 'color': 'primary'},
-    {'icon': 'brain-circuit', 'titulo': 'Machine Learning en Producción', 'entidad': 'DeepLearning.AI', 'anio': '2022', 'color': 'secondary'},
-]
-
-SOBRE_MI_SKILL_GROUPS = [
-    {'categoria': 'Data & IA', 'items': ['Python', 'PyTorch', 'MLOps', 'Airflow', 'Feature Stores', 'LLMs']},
-    {'categoria': 'Sistemas críticos & arquitectura', 'items': ['Control de procesos', 'Observabilidad', 'Diseño para fallo cero', 'SLA/SLO', 'Arquitectura de eventos']},
-    {'categoria': 'Infraestructura', 'items': ['AWS', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD']},
-]
-
-
 def sobre_mi(request):
+    about_content = AboutContent.objects.prefetch_related('timeline', 'certs', 'skill_groups').first()
     context = {
-        'timeline': SOBRE_MI_TIMELINE,
-        'certs': SOBRE_MI_CERTS,
-        'skill_groups': SOBRE_MI_SKILL_GROUPS,
+        'about_content': about_content,
+        'timeline': about_content.timeline.all() if about_content else [],
+        'certs': about_content.certs.all() if about_content else [],
+        'skill_groups': about_content.skill_groups.all() if about_content else [],
     }
     return render(request, 'core/sobre_mi.html', context)
 

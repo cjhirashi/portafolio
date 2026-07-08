@@ -10,20 +10,20 @@
 {% block content %}
 
 <div class="sm-hero">
-  <img src="{% static 'core/img/carlos.jpeg' %}" alt="Carlos A. Jiménez Hirashi" class="sm-hero-photo">
+  <img src="{% static 'core/img/carlos.jpeg' %}" alt="{{ about_content.nombre }}" class="sm-hero-photo">
   <div>
     <div class="sm-badge">
       <i data-lucide="shield-check" style="width:14px;height:14px"></i>
-      Tolerancia cero al error
+      {{ about_content.badge_texto }}
     </div>
-    <h1 class="sm-hero-title">Carlos A. Jiménez Hirashi</h1>
-    <p class="sm-hero-lead">Arquitecto Senior de Sistemas de Datos. 20+ años diseñando sistemas críticos que no pueden fallar — hoy aplicado a Data Science e IA en producción.</p>
+    <h1 class="sm-hero-title">{{ about_content.nombre }}</h1>
+    <p class="sm-hero-lead">{{ about_content.bio }}</p>
     <div class="sm-hero-actions">
       <a href="{% url 'core:contacto' %}" class="btn-primary">
-        Hablemos
+        {{ about_content.cta_primario_texto }}
         <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
       </a>
-      <a href="{% url 'core:proyectos' %}" class="btn-ghost">Ver proyectos</a>
+      <a href="{% url 'core:proyectos' %}" class="btn-ghost">{{ about_content.cta_secundario_texto }}</a>
     </div>
   </div>
 </div>
@@ -34,11 +34,11 @@
       <i data-lucide="compass" style="width:15px;height:15px"></i>01 · Filosofía
     </div>
     <div>
-      <h2 class="sm-section-title">Diseñar para que el error no exista</h2>
+      <h2 class="sm-section-title">{{ about_content.filosofia_titulo }}</h2>
       <div class="sm-quote">
-        <p>La mayoría de los sistemas se diseñan para recuperarse de un fallo. Yo los diseño para que ese fallo nunca pueda ocurrir en primer lugar.</p>
+        <p>{{ about_content.filosofia_cita }}</p>
       </div>
-      <p class="sm-body-text">Cada interacción entre componentes se modela antes de escribir una línea de código, buscando específicamente los puntos donde variables interdependientes podrían converger en un fallo. Esa disciplina viene de dos décadas comisionando sistemas industriales donde un error no es un bug — es un incidente. Hoy aplico el mismo rigor a modelos de IA y pipelines de datos en producción.</p>
+      <p class="sm-body-text">{{ about_content.filosofia_texto }}</p>
     </div>
   </div>
 </div>
@@ -49,7 +49,7 @@
       <i data-lucide="route" style="width:15px;height:15px"></i>02 · Trayectoria
     </div>
     <div>
-      <h2 class="sm-section-title sm-section-title--spaced">20+ años, dos disciplinas, un mismo estándar</h2>
+      <h2 class="sm-section-title sm-section-title--spaced">{{ about_content.trayectoria_titulo }}</h2>
       <div class="sm-timeline">
         {% for item in timeline %}
           <div class="sm-timeline-item">
@@ -78,7 +78,7 @@
         {% for cert in certs %}
           <div class="sm-cert-card">
             <div class="sm-cert-icon sm-cert-icon--{{ cert.color }}">
-              <i data-lucide="{{ cert.icon }}" style="width:19px;height:19px"></i>
+              <i data-lucide="{{ cert.icono }}" style="width:19px;height:19px"></i>
             </div>
             <div>
               <div class="sm-cert-title">{{ cert.titulo }}</div>
@@ -102,7 +102,7 @@
         <div>
           <div class="sm-skill-category">{{ group.categoria }}</div>
           <div class="sm-skill-tags">
-            {% for item in group.items %}
+            {% for item in group.items_list %}
               <span class="sm-skill-tag">{{ item }}</span>
             {% endfor %}
           </div>
@@ -114,10 +114,10 @@
 
 <div class="sm-cta-wrap">
   <div class="sm-cta">
-    <h2>¿Un sistema que no puede fallar?</h2>
-    <p>Hablemos de tu proyecto de datos, IA o automatización crítica.</p>
+    <h2>{{ about_content.cta_final_titulo }}</h2>
+    <p>{{ about_content.cta_final_texto }}</p>
     <a href="{% url 'core:contacto' %}" class="btn-primary">
-      Ir a contacto
+      {{ about_content.cta_final_boton_texto }}
       <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
     </a>
   </div>

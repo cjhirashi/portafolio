@@ -14,16 +14,16 @@
     <img src="{% static 'core/img/carlos.jpeg' %}" alt="Carlos A. Jiménez Hirashi" class="home-photo">
     <div class="home-badge">
       <i data-lucide="shield-check" style="width:14px;height:14px"></i>
-      Tolerancia cero al error
+      {{ home_content.badge_texto }}
     </div>
-    <h1 class="home-hero-title">Diseño sistemas de datos que operan solos, incluso cuando fallar no es una opción.</h1>
-    <p class="home-hero-lead">20+ años en automatización de sistemas críticos, hoy aplicado a Data Science e IA en producción.</p>
+    <h1 class="home-hero-title">{{ home_content.titulo }}</h1>
+    <p class="home-hero-lead">{{ home_content.lead }}</p>
     <div class="home-hero-actions">
       <a href="{% url 'core:proyectos' %}" class="btn-primary">
-        Ver caso INS
+        {{ home_content.cta_primario_texto }}
         <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
       </a>
-      <a href="{% url 'core:proyectos' %}" class="btn-ghost">Ver proyectos</a>
+      <a href="{% url 'core:proyectos' %}" class="btn-ghost">{{ home_content.cta_secundario_texto }}</a>
     </div>
   </div>
 
@@ -31,9 +31,9 @@
     {% for stat in stats %}
       <div class="home-stat">
         <div class="home-stat-value home-stat-value--{{ stat.color }}"
-             data-count-to="{{ stat.value }}"
-             data-count-suffix="{{ stat.suffix }}">0</div>
-        <div class="home-stat-label">{{ stat.label }}</div>
+             data-count-to="{{ stat.valor }}"
+             data-count-suffix="{{ stat.sufijo }}">0</div>
+        <div class="home-stat-label">{{ stat.etiqueta }}</div>
       </div>
     {% endfor %}
   </div>
@@ -44,8 +44,8 @@
 
     <div class="home-case-main">
       <div class="home-case-main-header">
-        <h2><i data-lucide="anchor" style="width:16px;height:16px"></i> Caso ancla — Bioterio INS</h2>
-        <span class="home-case-year">2015</span>
+        <h2><i data-lucide="anchor" style="width:16px;height:16px"></i> {{ home_content.caso_titulo }}</h2>
+        <span class="home-case-year">{{ home_content.caso_anio }}</span>
       </div>
       <div class="home-case-body">
         <div>
@@ -53,21 +53,21 @@
             <i data-lucide="circle-alert" style="width:12px;height:12px"></i>
             Problema
           </span>
-          <p>Certificación nivel 2 exigida tras el fracaso de una consultora multinacional dos años antes.</p>
+          <p>{{ home_content.caso_problema }}</p>
         </div>
         <div>
           <span class="home-case-kicker">
             <i data-lucide="network" style="width:12px;height:12px"></i>
             Arquitectura
           </span>
-          <p>Rediseño sistémico de controles ambientales y de contención, tolerancia cero al error.</p>
+          <p>{{ home_content.caso_arquitectura }}</p>
         </div>
         <div class="home-case-result">
           <span class="home-case-kicker">
             <i data-lucide="trending-up" style="width:12px;height:12px"></i>
             Resultado
           </span>
-          <p>Calificó para <b>nivel 3</b> — 100% de pruebas pasadas, cero degradación.</p>
+          <p>{{ home_content.caso_resultado_html }}</p>
         </div>
       </div>
     </div>
@@ -77,8 +77,8 @@
         <div class="home-case-image" aria-hidden="true">Imagen del caso INS</div>
       {% endif %}
       <div class="home-case-stat">
-        <div class="home-case-stat-value home-case-stat-value--{{ case_stat.color }}">{{ case_stat.value }}</div>
-        <div class="home-case-stat-label">{{ case_stat.label }}</div>
+        <div class="home-case-stat-value home-case-stat-value--{{ case_stat.color }}">{{ case_stat.valor }}</div>
+        <div class="home-case-stat-label">{{ case_stat.etiqueta }}</div>
       </div>
     {% endfor %}
 
@@ -86,10 +86,10 @@
 
   <div class="home-case-actions">
     <a href="{% url 'core:proyectos' %}" class="btn-primary">
-      Ver caso INS
+      {{ home_content.cta_primario_texto }}
       <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
     </a>
-    <a href="{% url 'core:proyectos' %}" class="btn-ghost">Ver proyectos</a>
+    <a href="{% url 'core:proyectos' %}" class="btn-ghost">{{ home_content.cta_secundario_texto }}</a>
   </div>
 </div>
 

@@ -160,3 +160,154 @@ class Post(models.Model):
     @property
     def contenido_html(self):
         return mark_safe(markdown_lib.markdown(self.contenido, extensions=['extra']))
+
+
+COLOR_CHOICES = [('primary', 'Primary'), ('secondary', 'Secondary')]
+
+
+class HomeContent(models.Model):
+    badge_texto = models.CharField(max_length=100, default='Tolerancia cero al error')
+    titulo = models.CharField('Título del hero', max_length=300)
+    lead = models.TextField('Texto del hero')
+    cta_primario_texto = models.CharField(max_length=50, default='Ver caso INS')
+    cta_secundario_texto = models.CharField(max_length=50, default='Ver proyectos')
+
+    caso_titulo = models.CharField('Título del caso de estudio', max_length=200, default='Caso ancla — Bioterio INS')
+    caso_anio = models.CharField(max_length=10, default='2015')
+    caso_problema = models.TextField('Problema')
+    caso_arquitectura = models.TextField('Arquitectura')
+    caso_resultado = models.TextField(
+        'Resultado',
+        help_text='Se permite HTML simple, ej. <b>negrita</b>.',
+    )
+
+    class Meta:
+        verbose_name = 'Contenido de Home'
+        verbose_name_plural = 'Contenido de Home'
+
+    def __str__(self):
+        return 'Contenido de Home'
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @property
+    def caso_resultado_html(self):
+        return mark_safe(self.caso_resultado)
+
+
+class HomeStat(models.Model):
+    home = models.ForeignKey(HomeContent, related_name='stats', on_delete=models.CASCADE)
+    valor = models.FloatField(help_text='Ej: 12, 20, 99.9')
+    sufijo = models.CharField(max_length=5, blank=True, help_text='Ej: +, %')
+    etiqueta = models.CharField(max_length=100)
+    color = models.CharField(max_length=10, choices=COLOR_CHOICES, default='primary')
+    orden = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['orden', 'id']
+        verbose_name = 'Estadística'
+        verbose_name_plural = 'Estadísticas del hero'
+
+    def __str__(self):
+        return f'{self.valor}{self.sufijo} — {self.etiqueta}'
+
+
+class HomeCaseStat(models.Model):
+    home = models.ForeignKey(HomeContent, related_name='case_stats', on_delete=models.CASCADE)
+    valor = models.CharField(max_length=20)
+    etiqueta = models.CharField(max_length=100)
+    color = models.CharField(max_length=10, choices=COLOR_CHOICES, default='primary')
+    orden = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['orden', 'id']
+        verbose_name = 'Estadística del caso'
+        verbose_name_plural = 'Estadísticas del caso de estudio'
+
+    def __str__(self):
+        return f'{self.valor} — {self.etiqueta}'
+
+
+class AboutContent(models.Model):
+    badge_texto = models.CharField(max_length=100, default='Tolerancia cero al error')
+    nombre = models.CharField(max_length=150, default='Carlos A. Jiménez Hirashi')
+    bio = models.TextField('Biografía corta (hero)')
+    cta_primario_texto = models.CharField(max_length=50, default='Hablemos')
+    cta_secundario_texto = models.CharField(max_length=50, default='Ver proyectos')
+
+    filosofia_titulo = models.CharField(max_length=200, default='Diseñar para que el error no exista')
+    filosofia_cita = models.TextField('Cita (blockquote)')
+    filosofia_texto = models.TextField('Texto de filosofía')
+
+    trayectoria_titulo = models.CharField(max_length=200, default='20+ años, dos disciplinas, un mismo estándar')
+
+    cta_final_titulo = models.CharField(max_length=200, default='¿Un sistema que no puede fallar?')
+    cta_final_texto = models.TextField(default='Hablemos de tu proyecto de datos, IA o automatización crítica.')
+    cta_final_boton_texto = models.CharField(max_length=50, default='Ir a contacto')
+
+    class Meta:
+        verbose_name = 'Contenido de Sobre Mí'
+        verbose_name_plural = 'Contenido de Sobre Mí'
+
+    def __str__(self):
+        return 'Contenido de Sobre Mí'
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+
+class TimelineEntry(models.Model):
+    about = models.ForeignKey(AboutContent, related_name='timeline', on_delete=models.CASCADE)
+    periodo = models.CharField(max_length=50)
+    rol = models.CharField(max_length=150)
+    contexto = models.CharField(max_length=150)
+    logro = models.TextField()
+    orden = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['orden', 'id']
+        verbose_name = 'Entrada de trayectoria'
+        verbose_name_plural = 'Trayectoria (timeline)'
+
+    def __str__(self):
+        return f'{self.periodo} — {self.rol}'
+
+
+class Certification(models.Model):
+    about = models.ForeignKey(AboutContent, related_name='certs', on_delete=models.CASCADE)
+    icono = models.CharField(max_length=50, help_text='Nombre de ícono Lucide, ej: shield-check')
+    titulo = models.CharField(max_length=200)
+    entidad = models.CharField(max_length=150)
+    anio = models.CharField(max_length=10)
+    color = models.CharField(max_length=10, choices=COLOR_CHOICES, default='primary')
+    orden = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['orden', 'id']
+        verbose_name = 'Certificación'
+        verbose_name_plural = 'Certificaciones'
+
+    def __str__(self):
+        return self.titulo
+
+
+class SkillGroup(models.Model):
+    about = models.ForeignKey(AboutContent, related_name='skill_groups', on_delete=models.CASCADE)
+    categoria = models.CharField(max_length=150)
+    items = models.CharField(max_length=500, help_text='Habilidades separadas por coma.')
+    orden = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['orden', 'id']
+        verbose_name = 'Grupo de habilidades'
+        verbose_name_plural = 'Habilidades técnicas'
+
+    def __str__(self):
+        return self.categoria
+
+    @property
+    def items_list(self):
+        return [s.strip() for s in self.items.split(',') if s.strip()]

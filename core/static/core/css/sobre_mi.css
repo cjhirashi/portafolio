@@ -215,8 +215,9 @@
 
 .sm-timeline-period {
   font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text);
   margin-bottom: 10px;
 }
 

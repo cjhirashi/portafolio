@@ -7,6 +7,4 @@ staticfiles/
 media/
 _design_handoff/
 *.zip
-DEPLOY.md
-CONTENIDO_A_LLENAR.md
-VPS_ACCESO.md
+DOCS/

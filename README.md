@@ -84,4 +84,4 @@ Ver [`.env.example`](.env.example) para la lista completa. Las más relevantes:
 
 ## Despliegue
 
-El procedimiento completo de despliegue al VPS (Hostinger, PostgreSQL existente, nginx + gunicorn + certbot) está documentado en `DEPLOY.md`, que **se mantiene solo en local** y no se sube a este repositorio.
+El procedimiento completo de despliegue al VPS (Hostinger, PostgreSQL existente, nginx + gunicorn + certbot) está documentado en `DOCS/DEPLOY.md`, que **se mantiene solo en local** y no se sube a este repositorio.

@@ -55,9 +55,9 @@
           <div class="sm-timeline-item">
             <div class="sm-timeline-dot"></div>
             <div class="sm-timeline-header">
-              <span class="sm-timeline-period">{{ item.periodo }}</span>
-              <span class="sm-timeline-role">{{ item.rol }}{% if item.empresa %} · {{ item.empresa }}{% endif %}</span>
+              {% if item.empresa %}<span class="sm-timeline-empresa">{{ item.empresa }}</span> - {% endif %}<span class="sm-timeline-role">{{ item.rol }}</span>
             </div>
+            <div class="sm-timeline-period">{{ item.periodo }}</div>
             {% if item.responsabilidades %}
               <p class="sm-timeline-text"><strong>Responsabilidades:</strong> {{ item.responsabilidades }}</p>
             {% endif %}

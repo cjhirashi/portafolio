@@ -199,15 +199,11 @@
 }
 
 .sm-timeline-header {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
-.sm-timeline-period {
-  font-size: 13px;
+.sm-timeline-empresa {
+  font-size: 17px;
   font-weight: 700;
   color: var(--primary);
 }
@@ -215,6 +211,13 @@
 .sm-timeline-role {
   font-size: 17px;
   font-weight: 700;
+}
+
+.sm-timeline-period {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
 }
 
 .sm-timeline-text {

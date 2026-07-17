@@ -76,23 +76,15 @@ a {
   color: inherit;
 }
 
-.brand-badge {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: var(--primary);
-  color: var(--on-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 14px;
+.brand-logo {
+  height: 32px;
+  width: auto;
+  display: block;
 }
 
-.brand-name {
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: -0.01em;
+html[data-theme="light"] .brand-logo--dark,
+html[data-theme="dark"] .brand-logo--light {
+  display: none;
 }
 
 .site-header-right {

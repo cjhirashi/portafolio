@@ -91,10 +91,6 @@
   background: var(--secondary-container);
 }
 
-.bg-pilar-badge--accent {
-  color: var(--accent);
-  background: var(--accent-container);
-}
 
 .bg-card-title-wrap {
   min-height: 52px;

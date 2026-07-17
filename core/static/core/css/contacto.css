@@ -166,7 +166,7 @@ textarea.contacto-field-input {
 }
 
 .contacto-field-error {
-  color: var(--accent);
+  color: var(--secondary);
   font-size: 12.5px;
   margin-top: 6px;
 }
@@ -175,7 +175,7 @@ textarea.contacto-field-input {
   margin: 0 0 20px;
   padding: 12px 14px;
   border-radius: 10px;
-  background: var(--accent-container);
+  background: var(--secondary-container);
   color: var(--text);
   font-size: 13.5px;
 }

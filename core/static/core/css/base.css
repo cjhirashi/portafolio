@@ -1,9 +1,9 @@
 :root,
 html[data-theme="light"] {
   --bg: #f8fafc;
-  --primary: #42728a;
+  --primary: #0e7490;
   --on-primary: #fff;
-  --primary-container: #dae9f1;
+  --primary-container: #cffafe;
   --secondary: #7c5aa6;
   --secondary-container: #e6def2;
   --surface: #eef1f6;
@@ -19,9 +19,9 @@ html[data-theme="light"] {
 
 html[data-theme="dark"] {
   --bg: #1b1b1e;
-  --primary: #87b3c9;
+  --primary: #0891b2;
   --on-primary: #0a0e17;
-  --primary-container: #334e5b;
+  --primary-container: #1b3237;
   --secondary: #b79bd6;
   --secondary-container: #3a2f4a;
   --surface: #242427;

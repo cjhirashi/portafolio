@@ -55,15 +55,20 @@ a {
 
 .site-header {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 22px 56px;
   border-bottom: 1px solid var(--border);
 }
 
+.site-header-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 22px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @media (max-width: 768px) {
-  .site-header {
+  .site-header-inner {
     padding: 16px 20px;
   }
 }

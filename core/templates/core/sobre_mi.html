@@ -89,7 +89,10 @@
             </div>
             <div>
               <div class="sm-cert-title">{{ cert.titulo }}</div>
-              <div class="sm-cert-meta">{{ cert.entidad }} · {{ cert.anio }}</div>
+              <div class="sm-cert-meta">{{ cert.entidad }} · {{ cert.periodo }}</div>
+              {% if cert.descripcion %}
+                <p class="sm-cert-desc">{{ cert.descripcion }}</p>
+              {% endif %}
             </div>
           </div>
         {% endfor %}

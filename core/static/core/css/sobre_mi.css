@@ -289,6 +289,13 @@
   color: var(--text-secondary);
 }
 
+.sm-cert-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+
 /* Skills */
 
 .sm-skills {

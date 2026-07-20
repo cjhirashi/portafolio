@@ -431,7 +431,8 @@ class Certification(models.Model):
     )
     titulo = models.CharField(max_length=200, help_text='Nombre de la certificación.')
     entidad = models.CharField(max_length=150, help_text='Institución u organización que la emitió.')
-    anio = models.CharField(max_length=10, help_text='Año en que se obtuvo, ej: 2021.')
+    periodo = models.CharField(max_length=30, help_text='Año o rango, ej: 2021 o 2019 — presente.')
+    descripcion = models.TextField(blank=True, help_text='Descripción breve de la certificación o lo que acredita. Opcional — si está vacío no se muestra en la tarjeta.')
     color = models.CharField(
         max_length=10,
         choices=COLOR_CHOICES,

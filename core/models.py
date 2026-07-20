@@ -410,7 +410,8 @@ class TimelineEntry(models.Model):
     rol = models.CharField(max_length=150, help_text='Puesto o rol durante ese periodo.')
     empresa = models.CharField(max_length=150, blank=True, help_text='Empresa u organización donde ocupaste ese rol.')
     responsabilidades = models.TextField(help_text='Qué hacías en ese puesto: funciones y responsabilidades principales.')
-    logro = models.TextField(help_text='Logros, resultados o momentos clave de esa etapa.')
+    logro = models.TextField(blank=True, help_text='Logros, resultados o momentos clave de esa etapa. Opcional — si está vacío no se muestra en la página.')
+    caso_exito = models.TextField(blank=True, help_text='Caso de éxito concreto de esa etapa. Opcional — si está vacío no se muestra en la página.')
     orden = models.PositiveIntegerField(default=0, help_text='Controla el orden en la línea de tiempo (menor primero, de arriba a abajo).')
 
     class Meta:

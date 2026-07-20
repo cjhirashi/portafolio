@@ -64,6 +64,9 @@
             {% if item.logro %}
               <p class="sm-timeline-text"><strong>Logros:</strong> {{ item.logro }}</p>
             {% endif %}
+            {% if item.caso_exito %}
+              <p class="sm-timeline-text"><strong>Caso de éxito:</strong> {{ item.caso_exito }}</p>
+            {% endif %}
           </div>
         {% endfor %}
       </div>

@@ -45,8 +45,6 @@
 
   {% if project.imagen_hero %}
     <img src="{{ project.imagen_hero.url }}" alt="{{ project.titulo }}" class="pd-hero-image">
-  {% else %}
-    <div class="pd-hero-image pd-hero-image--placeholder" aria-hidden="true">Imagen principal del proyecto</div>
   {% endif %}
 </div>
 
@@ -131,8 +129,6 @@
       {% for g in project.galeria.all %}
         {% if g.imagen %}
           <img src="{{ g.imagen.url }}" alt="{{ g.placeholder }}" class="pd-gallery-image">
-        {% else %}
-          <div class="pd-gallery-image pd-gallery-image--placeholder" aria-hidden="true">{{ g.placeholder }}</div>
         {% endif %}
       {% endfor %}
     </div>

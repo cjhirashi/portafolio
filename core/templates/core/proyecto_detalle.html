@@ -101,8 +101,6 @@
       <p class="pd-body-text pd-body-text--spaced">{{ project.arquitectura_texto }}</p>
       {% if project.imagen_arquitectura %}
         <img src="{{ project.imagen_arquitectura.url }}" alt="Arquitectura de {{ project.titulo }}" class="pd-arch-image">
-      {% else %}
-        <div class="pd-arch-image pd-arch-image--placeholder" aria-hidden="true">Diagrama de arquitectura del sistema</div>
       {% endif %}
     </div>
   </div>

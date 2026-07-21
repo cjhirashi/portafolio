@@ -44,7 +44,9 @@
   </div>
 
   {% if project.imagen_hero %}
-    <img src="{{ project.imagen_hero.url }}" alt="{{ project.titulo }}" class="pd-hero-image">
+    <a class="pd-lightbox-trigger" data-lightbox="{{ project.imagen_hero.url }}" aria-label="Ver imagen ampliada">
+      <img src="{{ project.imagen_hero.url }}" alt="{{ project.titulo }}" class="pd-hero-image">
+    </a>
   {% endif %}
 </div>
 
@@ -98,7 +100,9 @@
       <h2 class="pd-section-title">Cómo funciona el sistema</h2>
       <p class="pd-body-text pd-body-text--spaced">{{ project.arquitectura_texto }}</p>
       {% if project.imagen_arquitectura %}
-        <img src="{{ project.imagen_arquitectura.url }}" alt="Arquitectura de {{ project.titulo }}" class="pd-arch-image">
+        <a class="pd-lightbox-trigger" data-lightbox="{{ project.imagen_arquitectura.url }}" aria-label="Ver imagen ampliada">
+          <img src="{{ project.imagen_arquitectura.url }}" alt="Arquitectura de {{ project.titulo }}" class="pd-arch-image">
+        </a>
       {% endif %}
     </div>
   </div>
@@ -158,5 +162,93 @@
     </span>
   </a>
 </div>
+
+<!-- Lightbox -->
+<div class="pd-lightbox" id="pd-lightbox" role="dialog" aria-modal="true">
+  <div class="pd-lightbox-inner" id="pd-lightbox-inner">
+    <img class="pd-lightbox-img" id="pd-lightbox-img" src="" alt="">
+    <button class="pd-lightbox-close" id="pd-lightbox-close" aria-label="Cerrar">
+      <i data-lucide="x" style="width:18px;height:18px"></i>
+    </button>
+    <span class="pd-lightbox-hint">Pellizca para hacer zoom · Doble toque para ampliar</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  var lightbox = document.getElementById('pd-lightbox');
+  var lbImg    = document.getElementById('pd-lightbox-img');
+  var lbClose  = document.getElementById('pd-lightbox-close');
+  var lbInner  = document.getElementById('pd-lightbox-inner');
+  var scale = 1;
+
+  document.querySelectorAll('.pd-lightbox-trigger').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      lbImg.src = el.dataset.lightbox;
+      lbImg.alt = (el.querySelector('img') || {}).alt || '';
+      scale = 1;
+      lbImg.style.transform = 'scale(1)';
+      lbImg.style.transition = '';
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+    scale = 1;
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox || e.target === lbInner) closeLightbox();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Pinch-to-zoom
+  var lastDist = 0, startScale = 1;
+
+  lbInner.addEventListener('touchstart', function (e) {
+    if (e.touches.length === 2) {
+      lastDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      startScale = scale;
+    }
+  }, { passive: true });
+
+  lbInner.addEventListener('touchmove', function (e) {
+    if (e.touches.length === 2) {
+      var dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      scale = Math.min(Math.max(startScale * (dist / lastDist), 1), 5);
+      lbImg.style.transform = 'scale(' + scale + ')';
+      lbImg.style.transition = 'none';
+    }
+  }, { passive: true });
+
+  // Doble toque para alternar zoom
+  var lastTap = 0;
+  lbInner.addEventListener('touchend', function (e) {
+    if (e.touches.length !== 0) return;
+    var now = Date.now();
+    if (now - lastTap < 300) {
+      scale = scale > 1 ? 1 : 2.5;
+      lbImg.style.transition = 'transform 0.25s ease';
+      lbImg.style.transform = 'scale(' + scale + ')';
+    }
+    lastTap = now;
+  });
+})();
+</script>
 
 {% endblock %}

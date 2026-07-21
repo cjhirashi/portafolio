@@ -48,9 +48,9 @@
 .bg-card-image,
 .bg-card-image--placeholder {
   width: 100%;
-  height: 180px;
+  aspect-ratio: 16 / 9;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
   background: var(--border);
   color: var(--text-secondary);
 }

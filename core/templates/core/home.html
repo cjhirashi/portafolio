@@ -148,6 +148,7 @@
         <div class="home-card-body">
           <span class="home-blog-pilar">{{ post.pilar }}</span>
           <h3 class="home-card-title home-card-title--sm">{{ post.titulo }}</h3>
+          {% if post.extracto %}<p class="home-card-text">{{ post.extracto }}</p>{% endif %}
         </div>
       </a>
     {% endfor %}

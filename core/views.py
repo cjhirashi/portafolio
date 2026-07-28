@@ -109,7 +109,8 @@ def blog_detalle(request, slug):
         idx = ids.index(post.pk)
         next_post = Post.objects.get(pk=ids[(idx + 1) % len(ids)])
 
-    return render(request, 'core/blog_detalle.html', {'post': post, 'next_post': next_post})
+    about = AboutContent.objects.only('nombre', 'bio').first()
+    return render(request, 'core/blog_detalle.html', {'post': post, 'next_post': next_post, 'about': about})
 
 
 def sobre_mi(request):

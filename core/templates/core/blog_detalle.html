@@ -52,10 +52,10 @@
 
 <div class="bd-author-wrap">
   <div class="bd-author">
-    <div class="bd-author-avatar" aria-hidden="true">Foto</div>
+    <img src="{% static 'core/img/carlos.jpeg' %}" alt="{{ about.nombre }}" class="bd-author-avatar">
     <div>
-      <div class="bd-author-name">Carlos A. Jiménez Hirashi</div>
-      <p class="bd-author-bio">Arquitecto Senior de Sistemas de Datos con 20+ años de trayectoria en automatización de sistemas críticos, hoy enfocado en Data Science e IA.</p>
+      <div class="bd-author-name">{{ about.nombre }}</div>
+      <p class="bd-author-bio">{{ about.bio }}</p>
     </div>
   </div>
 </div>

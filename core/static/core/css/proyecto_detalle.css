@@ -89,7 +89,7 @@
   aspect-ratio: 16 / 9;
   display: block;
   border-radius: 16px;
-  object-fit: contain;
+  object-fit: cover;
   background: var(--border);
   color: var(--text-secondary);
 }

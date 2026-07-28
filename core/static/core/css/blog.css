@@ -50,7 +50,7 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   background: var(--border);
   color: var(--text-secondary);
 }

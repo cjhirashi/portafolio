@@ -55,6 +55,7 @@
     <img src="{% static 'core/img/carlos.jpeg' %}" alt="{{ about.nombre }}" class="bd-author-avatar">
     <div>
       <div class="bd-author-name">{{ about.nombre }}</div>
+      {% if about.badge_texto %}<div class="bd-author-title">{{ about.badge_texto }}</div>{% endif %}
       <p class="bd-author-bio">{{ about.bio }}</p>
     </div>
   </div>

@@ -232,6 +232,13 @@
   margin-bottom: 4px;
 }
 
+.bd-author-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 2px 0 6px;
+}
+
 .bd-author-bio {
   font-size: 14px;
   color: var(--text-secondary);

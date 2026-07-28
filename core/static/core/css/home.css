@@ -193,6 +193,37 @@
   color: var(--primary);
 }
 
+.home-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.home-section-header .home-section-title {
+  margin-bottom: 0;
+  width: auto;
+}
+
+.home-section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.home-section-link:hover {
+  opacity: 0.8;
+}
+
+.home-card-grid {
+  margin-top: 24px;
+}
+
 @media (max-width: 860px) {
   .home-section,
   .home-section--surface {

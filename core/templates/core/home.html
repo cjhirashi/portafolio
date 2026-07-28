@@ -105,10 +105,15 @@
 
 {% if projects %}
 <div class="home-section">
-  <h2 class="home-section-title">
-    <i data-lucide="layers" style="width:20px;height:20px"></i>
-    Proyectos destacados
-  </h2>
+  <div class="home-section-header">
+    <h2 class="home-section-title">
+      <i data-lucide="layers" style="width:20px;height:20px"></i>
+      Proyectos
+    </h2>
+    <a href="{% url 'core:proyectos' %}" class="home-section-link">
+      Ver todos <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
+    </a>
+  </div>
   <div class="home-card-grid">
     {% for project in projects %}
       <a href="{{ project.get_absolute_url }}" class="home-project-card">
@@ -133,10 +138,15 @@
 
 {% if blog_posts %}
 <div class="home-section home-section--surface">
-  <h2 class="home-section-title">
-    <i data-lucide="book-open" style="width:20px;height:20px"></i>
-    Del blog
-  </h2>
+  <div class="home-section-header">
+    <h2 class="home-section-title">
+      <i data-lucide="book-open" style="width:20px;height:20px"></i>
+      Del blog
+    </h2>
+    <a href="{% url 'core:blog' %}" class="home-section-link">
+      Ver todos <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
+    </a>
+  </div>
   <div class="home-card-grid">
     {% for post in blog_posts %}
       <a href="{{ post.get_absolute_url }}" class="home-blog-card">

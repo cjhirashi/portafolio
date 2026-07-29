@@ -144,7 +144,7 @@ def contacto(request):
             try:
                 EmailMessage(
                     subject=f'Contacto desde el portafolio — {nombre}',
-                    body=f'{mensaje}\n\n— {nombre} ({email})',
+                    body=f'Nombre: {nombre}\nEmail: {email}\n\n{mensaje}\n\n— Enviado desde el portafolio de cjhirashi.com',
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     to=[settings.CONTACT_RECIPIENT_EMAIL],
                     reply_to=[email],

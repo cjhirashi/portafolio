@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from .forms import ContactoForm
-from .models import PILARES, AboutContent, HomeContent, Post, Project
+from .models import AboutContent, HomeContent, Post, Project
 
 
 def _post_visible():
@@ -85,8 +85,9 @@ def blog(request):
     pilar = request.GET.get('pilar', 'Todos')
     orden = request.GET.get('orden', 'recientes')
 
+    pilares = Post.objects.filter(_post_visible()).values_list('pilar', flat=True).distinct().order_by('pilar')
     filters = [{'label': 'Todos', 'activo': pilar == 'Todos'}]
-    filters += [{'label': p, 'activo': pilar == p} for p in PILARES]
+    filters += [{'label': p, 'activo': pilar == p} for p in pilares]
 
     posts_qs = Post.objects.filter(_post_visible())
     if pilar != 'Todos':

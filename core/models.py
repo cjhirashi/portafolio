@@ -5,8 +5,6 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
-PILARES = ['Arquitectura', 'Data Science e IA', 'Pensamiento Sistémico']
-PILAR_CHOICES = [(p, p) for p in PILARES]
 
 
 class Project(models.Model):
@@ -231,8 +229,7 @@ class Post(models.Model):
         help_text='Se genera solo a partir del título si lo dejas vacío. Define la URL: /blog/este-texto/',
     )
     pilar = models.CharField(
-        max_length=40,
-        choices=PILAR_CHOICES,
+        max_length=80,
         help_text='Categoría temática del artículo. Funciona como filtro en el listado del Blog y define el color de la etiqueta.',
     )
 

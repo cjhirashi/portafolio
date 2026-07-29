@@ -192,8 +192,8 @@ textarea.contacto-field-input {
   width: 56px;
   height: 56px;
   border-radius: 100px;
-  background: var(--secondary-container);
-  color: var(--secondary);
+  background: var(--primary-container);
+  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;

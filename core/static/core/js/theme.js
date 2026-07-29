@@ -1,19 +1,51 @@
 (function () {
-  function renderIcons() {
-    if (window.lucide) window.lucide.createIcons();
+  var MODES = ['light', 'system', 'dark'];
+
+  function systemIsDark() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    renderIcons();
+  function applyTheme(mode) {
+    var root = document.documentElement;
+    var resolved = mode === 'system' ? (systemIsDark() ? 'dark' : 'light') : mode;
+    root.setAttribute('data-theme', resolved);
+  }
 
-    var toggle = document.getElementById('theme-toggle');
-    if (!toggle) return;
-
-    toggle.addEventListener('click', function () {
-      var root = document.documentElement;
-      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+  function updatePill(mode) {
+    var pos = MODES.indexOf(mode);
+    var indicator = document.getElementById('theme-pill-indicator');
+    if (indicator) indicator.setAttribute('data-pos', pos);
+    document.querySelectorAll('.theme-pill-btn').forEach(function (btn, i) {
+      btn.setAttribute('aria-pressed', i === pos ? 'true' : 'false');
     });
+  }
+
+  // Early apply before DOMContentLoaded (runs inline in <head> already for light/dark,
+  // this handles system preference on first load)
+  var saved = localStorage.getItem('theme') || 'system';
+  applyTheme(saved);
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.lucide) window.lucide.createIcons();
+    updatePill(saved);
+
+    document.querySelectorAll('.theme-pill-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var mode = btn.getAttribute('data-theme-val');
+        localStorage.setItem('theme', mode);
+        saved = mode;
+        applyTheme(mode);
+        updatePill(mode);
+      });
+    });
+
+    // React to OS preference change when mode is system
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        if ((localStorage.getItem('theme') || 'system') === 'system') {
+          applyTheme('system');
+        }
+      });
+    }
   });
 })();

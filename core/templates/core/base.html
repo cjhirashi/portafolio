@@ -11,10 +11,11 @@
   <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
   <script>
     (function () {
-      var saved = localStorage.getItem('theme');
-      if (saved === 'dark' || saved === 'light') {
-        document.documentElement.setAttribute('data-theme', saved);
-      }
+      var saved = localStorage.getItem('theme') || 'system';
+      var resolved = saved === 'system'
+        ? (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        : saved;
+      document.documentElement.setAttribute('data-theme', resolved);
     })();
   </script>
   {% block extra_head %}{% endblock %}
@@ -59,10 +60,18 @@
         {% endif %}
       </nav>
 
-      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
-        <i data-lucide="sun" class="theme-icon theme-icon--light"></i>
-        <i data-lucide="moon" class="theme-icon theme-icon--dark"></i>
-      </button>
+      <div class="theme-pill" id="theme-pill" role="group" aria-label="Tema">
+        <button type="button" class="theme-pill-btn" data-theme-val="light" aria-label="Tema claro">
+          <i data-lucide="sun" style="width:15px;height:15px"></i>
+        </button>
+        <button type="button" class="theme-pill-btn" data-theme-val="system" aria-label="Tema del sistema">
+          <i data-lucide="monitor" style="width:15px;height:15px"></i>
+        </button>
+        <button type="button" class="theme-pill-btn" data-theme-val="dark" aria-label="Tema oscuro">
+          <i data-lucide="moon" style="width:15px;height:15px"></i>
+        </button>
+        <span class="theme-pill-indicator" id="theme-pill-indicator"></span>
+      </div>
 
       <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav">
         <i data-lucide="menu" class="nav-toggle-icon nav-toggle-icon--open"></i>

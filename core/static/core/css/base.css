@@ -138,29 +138,52 @@ a.nav-link:hover {
   background: var(--primary);
 }
 
-.theme-toggle {
-  width: 38px;
-  height: 38px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
+.theme-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 3px;
+  gap: 0;
+}
+
+.theme-pill-btn {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
   cursor: pointer;
-  color: var(--text);
   padding: 0;
+  transition: color 200ms;
 }
 
-.theme-icon {
-  width: 17px;
-  height: 17px;
+.theme-pill-btn[aria-pressed="true"] {
+  color: var(--on-primary);
 }
 
-html[data-theme="light"] .theme-icon--dark,
-html[data-theme="dark"] .theme-icon--light {
-  display: none;
+.theme-pill-indicator {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  background: var(--primary);
+  transition: transform 220ms cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
 }
+
+.theme-pill-indicator[data-pos="1"] { transform: translateX(30px); }
+.theme-pill-indicator[data-pos="2"] { transform: translateX(60px); }
 
 /* Mobile nav toggle (hamburger) */
 

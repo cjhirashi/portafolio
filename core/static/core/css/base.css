@@ -281,7 +281,7 @@ a.nav-link:hover {
 
 .footer-social a {
   display: flex;
-  color: var(--text-secondary);
+  color: var(--primary);
 }
 
 /* Generic buttons/cards used across pages */
@@ -307,8 +307,8 @@ a.nav-link:hover {
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  color: var(--text);
-  border: 1px solid var(--border);
+  color: var(--primary);
+  border: 1px solid var(--primary);
   border-radius: 100px;
   padding: 10px 18px;
   font-size: 13.5px;

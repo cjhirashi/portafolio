@@ -6,9 +6,16 @@ from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 
 from .forms import ContactoForm
 from .models import PILARES, AboutContent, HomeContent, Post, Project
+
+
+def _post_visible():
+    """Posts visibles: publicados manualmente O con fecha programada ya cumplida."""
+    ahora = timezone.now()
+    return Q(publicado=True) | Q(publicado=False, fecha_programada__isnull=False, fecha_programada__lte=ahora)
 
 
 def home(request):
@@ -19,7 +26,7 @@ def home(request):
         'stats': home_content.stats.all() if home_content else [],
         'anchor_project': anchor_project,
         'projects': Project.objects.filter(publicado=True, destacado_home=True).order_by('-anio', 'id')[:3],
-        'blog_posts': Post.objects.filter(publicado=True, destacado_home=True).order_by('-fecha_publicacion', 'id')[:3],
+        'blog_posts': Post.objects.filter(_post_visible(), destacado_home=True).order_by('-fecha_publicacion', 'id')[:3],
     }
     return render(request, 'core/home.html', context)
 
@@ -81,7 +88,7 @@ def blog(request):
     filters = [{'label': 'Todos', 'activo': pilar == 'Todos'}]
     filters += [{'label': p, 'activo': pilar == p} for p in PILARES]
 
-    posts_qs = Post.objects.filter(publicado=True)
+    posts_qs = Post.objects.filter(_post_visible())
     if pilar != 'Todos':
         posts_qs = posts_qs.filter(pilar=pilar)
     if q:
@@ -101,9 +108,9 @@ def blog(request):
 
 
 def blog_detalle(request, slug):
-    post = get_object_or_404(Post, slug=slug, publicado=True)
+    post = get_object_or_404(Post, _post_visible(), slug=slug)
 
-    ids = list(Post.objects.filter(publicado=True).order_by('-fecha_publicacion', 'id').values_list('pk', flat=True))
+    ids = list(Post.objects.filter(_post_visible()).order_by('-fecha_publicacion', 'id').values_list('pk', flat=True))
     next_post = post
     if len(ids) > 1:
         idx = ids.index(post.pk)

@@ -281,9 +281,6 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.titulo)[:240]
-        # Si hay fecha programada en el futuro, mantener sin publicar
-        if self.fecha_programada and self.fecha_programada > timezone.now():
-            self.publicado = False
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

@@ -35,8 +35,13 @@
   align-items: center;
 }
 
+.pd-hero-tags .tag {
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
 .pd-hero-year {
-  font-size: 11.5px;
+  font-size: 13px;
   color: var(--text-secondary);
   margin-left: 4px;
 }

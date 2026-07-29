@@ -49,7 +49,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'pilar', 'fecha_publicacion', 'destacado_home', 'publicado']
+    list_display = ['titulo', 'pilar', 'fecha_publicacion', 'fecha_programada', 'destacado_home', 'publicado']
     list_display_links = ['titulo']
     list_editable = ['destacado_home']
     list_filter = ['pilar', 'publicado', 'destacado_home']

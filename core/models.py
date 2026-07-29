@@ -257,7 +257,13 @@ class Post(models.Model):
     fecha_publicacion = models.DateField(help_text='Define el orden del listado (más reciente primero) y se muestra en la tarjeta y el detalle.')
     lectura_min = models.PositiveIntegerField('Minutos de lectura', default=5, help_text='Se muestra junto a la fecha, ej: "8 min".')
 
-    publicado = models.BooleanField(default=True, help_text='Desmárcalo para ocultar el artículo de todo el sitio sin borrarlo.')
+    publicado = models.BooleanField(default=False, help_text='Desmárcalo para ocultar el artículo de todo el sitio sin borrarlo.')
+    fecha_programada = models.DateTimeField(
+        blank=True,
+        null=True,
+        help_text='Opcional. Si se define, el artículo se publicará automáticamente en esa fecha y hora (hora del servidor, UTC). '
+                  'Deja "Publicado" desmarcado para que el sistema lo active solo.',
+    )
     destacado_home = models.BooleanField(
         'Destacado en Home',
         default=False,
